@@ -1,0 +1,32 @@
+
+Ejercicio 2 - Registrando Clientes
+
+El mismo estudio del ejercicio anterior solicita una funcionalidad para poder registrar datos de nuevos Clientes.
+Los datos requeridos para registrar a un Cliente son:
+
+*Legajo
+*Nombre y Apellido
+*DNI
+*Número de teléfono
+*Domicilio
+
+Tarea 1: El número de legajo debe ser asignado o generado por separado y en forma previa a la carga de los restantes
+datos. Desarrolla e implementa una función para generar un ID que luego utilizarás para asignarlo como valor a “Legajo”.
+Si por algún motivo esta función retorna algún error, se debe generar un panic que interrumpa la ejecución y aborte.
+
+Tarea 2: Antes de registrar a un Cliente, debes verificar si el mismo ya existe. Para ello, necesitas leer los datos de
+un archivo .txt. En algún lugar de tu código, implementa la función para leer un archivo llamado “customers.txt”
+(como en el ejercicio anterior, este archivo no existe, por lo que la función que intente leerlo debe lanzar un panic).
+Al ejecutar esta función se debe lanzar por consola el mensaje “error: el archivo no fue encontrado o está dañado” y
+continuar con la ejecución del programa normalmente.
+
+Tarea 3: Luego de verificar si el Cliente ya existe, desarrolla una función para validar que todos los datos a registrar
+de un Cliente contienen un valor distinto de 0. En caso que ocurra este problema, la función debe devolver un error que
+debe ser manejado.
+
+Tarea 4: Antes de finalizar la ejecución, incluso si surgen panics, se debe imprimir por consola alguno de los siguiente
+mensajes: “fin de la ejecución de manera correcta” o “Se detectaron varios errores en tiempos de ejecución”. Utiliza un
+defer para cumplir con este requerimiento.
+
+Tarea 5: Crea un archivo “customers.txt”. Logra una ejecución por un “camino feliz” logrando leer todos los Clientes y
+printeandolos en consola”.
