@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -38,10 +39,10 @@ func readCliente() ([]Cliente, int64, error) {
 	return clients, indx, nil
 }
 
-//genera un nuevo id para la carga de un cliente
-func ID(str []Cliente) (string, error) {
-	id := string(len(str)/5 + 1)
-	if BuscarID(id, str) {
+//  GenerateID genera un nuevo id para la carga de un cliente
+func GenerateID(clientList []Cliente) (string, error) {
+	id := strconv.Itoa(len(clientList) + 1)
+	if BuscarID(id, clientList) {
 		return "", errors.New("el numero de legajo ya existe o es invalido")
 	} else {
 		return id, nil
@@ -49,46 +50,22 @@ func ID(str []Cliente) (string, error) {
 }
 
 //verifica si ya no existe tal id que se desea cargar
-func BuscarID(buscado string, str []Cliente) bool {
-	for i, componente := range str {
+func BuscarID(buscado string, clientList []Cliente) bool {
+	for i, cliente_ := range clientList {
 		if i%5 == 0 {
-			if componente.legajo == buscado {
+			if cliente_.legajo == buscado {
 				return true
 			}
 		}
 	}
 	return false
-
-	/*var buscado string
-
-	fmt.Println("\ningrese el legajo buscado: ")
-	fmt.Scan(&buscado)
-	buscado = string(buscado)
-
-	line, c := 0, 0
-	for i := 0; i < len(str); i++ { //recorro el txt
-		if (line % 6) == 0 { //examino solo las lineas que son multiplos de 6, ya que son las que lineienen el ID del usuario
-			c = i
-			for str[c:c+1] != "\n" { // este for recorre la linea desde el comienso a fin
-				if buscado == str[c:c+1] {
-					return true
-				}
-				c += 1
-			}
-		}
-		if str[i:i+1] == "\n" { //busco cada salto de linea para linear a estas
-			line += 1
-		}
-	}
-	return false
-	*/
 }
 
 //verifico la existencia de un cliente, a partir de su dni
-func VerifyClient(buscado string, str []Cliente) bool {
-	for i, componente := range str {
+func VerifyClient(buscado string, clientList []Cliente) bool {
+	for i, cliente_ := range clientList {
 		if (i-2)%5 == 0 {
-			if componente.dni == buscado {
+			if cliente_.dni == buscado {
 				return true
 			}
 		}
@@ -96,7 +73,7 @@ func VerifyClient(buscado string, str []Cliente) bool {
 	return false
 }
 
-//verifico que cada componente de mi cliente sea distinta de un valor nulo
+//verifico que cada cliente_ de mi cliente sea distinta de un valor nulo
 func VerifyNil(c *Cliente) error {
 	if c.legajo == "" {
 		return errors.New("error: legajo sin registrar")
@@ -117,24 +94,24 @@ func VerifyNil(c *Cliente) error {
 }
 
 //muestra por pantalla el registro de clientes
-func MisClientes(str []Cliente) {
-	for i, c := range str {
-		if (i+1)%5 == 0 {
-			fmt.Print("\n")
-		} else {
-			fmt.Print(c)
-		}
+func MisClientes(clientList []Cliente) {
+	for _, c := range clientList {
+		fmt.Println(c.legajo)
+		fmt.Println(c.nombre)
+		fmt.Println(c.dni)
+		fmt.Println(c.teléfono)
+		fmt.Println(c.domicilio)
 	}
 }
 
 func LoadClient(f *os.File, c Cliente, indxs int64) {
 	Ntxt := ""
 
-	Ntxt += c.legajo + ","
+	Ntxt += "\n" + c.legajo + ","
 	Ntxt += c.nombre + ","
 	Ntxt += c.dni + ","
 	Ntxt += c.teléfono + ","
-	Ntxt += c.domicilio + "\n"
+	Ntxt += c.domicilio
 	data2 := []byte(Ntxt)
 
 	fmt.Println(f, Ntxt, c)

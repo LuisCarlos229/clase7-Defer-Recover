@@ -27,7 +27,7 @@ func main() {
 		}
 	}()
 
-	file, err := os.Open("customers.txt")
+	file, err := os.OpenFile("customers.txt", os.O_RDWR, 0)
 	defer file.Close()
 	if err != nil {
 		log.Panic("el archivo indicado no fue encontrado o está dañado")
@@ -45,7 +45,7 @@ func main() {
 
 	client := NewClient()
 
-	id, err := ID(clientes)
+	id, err := GenerateID(clientes)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -58,13 +58,13 @@ func main() {
 	client.domicilio = "AV. Los Cedros 5"
 
 	registrado := VerifyClient(client.dni, clientes)
-	err = VerifyNil(&client)
-	if err != nil {
+	if err := VerifyNil(&client); err != nil {
 		log.Println(err)
 		fmt.Println("uno o varios datos del cliente estan sin registrar")
 	}
 
-	log.Println(67, file, client, indexs)
+	log.Println("==============pre LoadClient================", 67, file, client, indexs, "================")
+	fmt.Println("\n ")
 
 	if registrado == false {
 		LoadClient(file, client, indexs)
@@ -72,7 +72,7 @@ func main() {
 		fmt.Println("el cliente ya existe")
 	}
 
-	log.Println(75)
+	log.Println("\n\n==============pos LoadClient================", 75, file, "\n================")
 
 	MisClientes(clientes)
 

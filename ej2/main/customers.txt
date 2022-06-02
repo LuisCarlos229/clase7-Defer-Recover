@@ -1,2 +1,11 @@
 1,Lucas Baltazar,44333222,37550001,AV. Picapau 50
 2,Lautaro vega,44333555,37550002,AV. Castell 10
+,juan,555999888,37550003,AV. Los Cedros 5
+
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
+2,juan,555999888,37550003,AV. Los Cedros 5
