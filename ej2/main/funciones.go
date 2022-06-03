@@ -20,7 +20,7 @@ func readCliente() ([]Cliente, int64, error) {
 		return nil, 0, err
 	}
 
-	indx := int64(len(data_bytes))
+	indx := int64(len(data_bytes) - 1)
 	data := fmt.Sprintf("%s", data_bytes)
 
 	clients_str := strings.Split(data, "**")
@@ -41,10 +41,11 @@ func readCliente() ([]Cliente, int64, error) {
 
 //  GenerateID genera un nuevo id para la carga de un cliente
 func GenerateID(clientList []Cliente) (string, error) {
-	id := strconv.Itoa(len(clientList) + 1)
+	id := strconv.Itoa(len(clientList) + 2)
 	if BuscarID(id, clientList) {
 		return "", errors.New("el numero de legajo ya existe o es invalido")
 	} else {
+		fmt.Println("el numero de legajo generado es: ", id)
 		return id, nil
 	}
 }
@@ -94,14 +95,8 @@ func VerifyNil(c *Cliente) error {
 }
 
 //muestra por pantalla el registro de clientes
-func MisClientes(clientList []Cliente) {
-	for _, c := range clientList {
-		fmt.Println(c.legajo)
-		fmt.Println(c.nombre)
-		fmt.Println(c.dni)
-		fmt.Println(c.teléfono)
-		fmt.Println(c.domicilio)
-	}
+func MisClientes(dat []byte) {
+	fmt.Print(string(dat))
 }
 
 func LoadClient(f *os.File, c Cliente, indxs int64) {

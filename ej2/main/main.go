@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -63,18 +64,16 @@ func main() {
 		fmt.Println("uno o varios datos del cliente estan sin registrar")
 	}
 
-	log.Println("==============pre LoadClient================", 67, file, client, indexs, "================")
-	fmt.Println("\n ")
-
 	if registrado == false {
 		LoadClient(file, client, indexs)
+		fmt.Println(*file)
+		fmt.Println(readCliente())
 	} else {
 		fmt.Println("el cliente ya existe")
 	}
 
-	log.Println("\n\n==============pos LoadClient================", 75, file, "\n================")
-
-	MisClientes(clientes)
+	dat, _ := ioutil.ReadFile("customers.txt")
+	MisClientes(dat)
 
 	log.Println(79)
 
